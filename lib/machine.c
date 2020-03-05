@@ -172,6 +172,7 @@ msr_file_open(const unsigned lcore)
                 char fname[32];
 
                 memset(fname, 0, sizeof(fname));
+                //printf("Open msr file /dev/cpu/%u/msr for read/write\n", lcore);
 #ifdef __linux__
                 snprintf(fname, sizeof(fname)-1,
                          "/dev/cpu/%u/msr", lcore);
@@ -231,6 +232,8 @@ msr_read(const unsigned lcore,
                 *value = io.data;
         }
 #endif
+        //printf("RDMSR value[0x%llx] from reg[0x%x] on lcore=%u\n",
+        //        (unsigned long long)(*value), (unsigned)reg, lcore);
 
         if (read_ret != sizeof(value[0])) {
                 LOG_ERROR("RDMSR failed for reg[0x%x] on lcore %u\n",
@@ -263,6 +266,9 @@ msr_write(const unsigned lcore,
         fd = msr_file_open(lcore);
         if (fd < 0)
                 return MACHINE_RETVAL_ERROR;
+
+        printf("WRMSR reg[0x%x] <- value[0x%llx] on lcore=%u\n",
+                (unsigned)reg, (unsigned long long)value, lcore);
 
 #ifdef __linux__
         write_ret = pwrite(fd, &value, sizeof(value), (off_t)reg);

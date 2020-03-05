@@ -47,7 +47,7 @@ ifdef SHARED
 export SHARED
 endif
 
-.PHONY: all clean TAGS install uninstall style cppcheck
+.PHONY: all pqos clean TAGS install uninstall style cppcheck
 
 all:
 	$(MAKE) -C lib
@@ -57,6 +57,10 @@ all:
 	$(MAKE) -C examples/c/CAT_MBA
 	$(MAKE) -C examples/c/CMT_MBM
 	$(MAKE) -C examples/c/PSEUDO_LOCK
+
+pqos:
+	$(MAKE) -C lib
+	$(MAKE) -C pqos
 
 clean:
 	$(MAKE) -C lib clean
