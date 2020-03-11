@@ -267,8 +267,8 @@ msr_write(const unsigned lcore,
         if (fd < 0)
                 return MACHINE_RETVAL_ERROR;
 
-        printf("WRMSR reg[0x%x] <- value[0x%llx] on lcore=%u\n",
-                (unsigned)reg, (unsigned long long)value, lcore);
+        //printf("WRMSR reg[0x%x] <- value[0x%llx] on lcore=%u\n",
+        //        (unsigned)reg, (unsigned long long)value, lcore);
 
 #ifdef __linux__
         write_ret = pwrite(fd, &value, sizeof(value), (off_t)reg);
